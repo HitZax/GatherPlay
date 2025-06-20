@@ -1,0 +1,171 @@
+(function() {
+    'use strict';
+
+    // === UTILITIES ===
+    function getGameBoard() {
+        return document.getElementById('dmhk-board');
+    }
+
+    function showRoomSection() {
+        const roomSection = document.getElementById('room-section');
+        if (roomSection) {
+            roomSection.style.display = 'block';
+        }
+    }
+
+    function hideRoomSection() {
+        const roomSection = document.getElementById('room-section');
+        if (roomSection) {
+            roomSection.style.display = 'none';
+        }
+    }
+
+    function resetToLobby() {
+        clearTimer();
+
+        const board = getGameBoard();
+        if (board) {
+            board.innerHTML = "<h2>Waiting for host to start the game...</h2>";
+            board.style.display = 'none';
+        }
+
+        removeTimerDisplay();
+        showRoomSection();
+
+        if (typeof showSection === "function") {
+            showSection('room');
+        }
+
+        if (typeof showGameUIElements === "function") {
+            showGameUIElements(true);
+        }
+
+        // Hide other game boards if needed
+    }
+
+    // === ROOM LOADED LOGIC ===
+    function onRoomLoaded(roomId, username) {
+        setupLobbyResetListener(roomId);
+        setupGameStateListener(roomId);
+    }
+
+    function setupLobbyResetListener(roomId) {
+        db.ref('rooms/' + roomId + '/backToLobby').on('value', function(snap) {
+            if (snap.val()) {
+                resetToLobby();
+            }
+        });
+    }
+
+    function setupGameStateListener(roomId) {
+        db.ref('rooms/' + roomId + '/gameState').on('value', function(snap) {
+            const state = snap.val();
+
+            if (!state || !state.started) {
+                showLobbyState();
+            } else {
+                showGameState(state, roomId);
+            }
+        });
+    }
+
+    function showLobbyState() {
+        const board = getGameBoard();
+        board.innerHTML = "<h2>Waiting for host to start the game...</h2>";
+        board.style.display = 'none';
+
+        showRoomSection();
+    }
+
+    function showGameState(state, roomId) {
+        const board = getGameBoard();
+        board.style.display = 'block';
+        hideRoomSection();
+
+        // You will need to implement getPlayerMap for Deception
+        getPlayerMap(roomId).then(userMap => {
+            renderGame(state, roomId, userMap);
+        });
+    }
+
+    function getPlayerMap(roomId) {
+        return new Promise((resolve) => {
+            db.ref('rooms/' + roomId + '/players').once('value', function(playersSnap) {
+                const userMap = {};
+                playersSnap.forEach(child => {
+                    userMap[child.key] = child.val().name;
+                });
+                resolve(userMap);
+            });
+        });
+    }
+
+    // === GAME RENDERING ===
+    function renderGame(state, roomId, userMap) {
+        const container = getGameBoard();
+        container.innerHTML = '';
+
+        // TODO: Render game header, phase, etc. for Deception
+        // Example:
+        // renderGameHeader(container, state, userMap);
+        // renderGamePhase(container, state, roomId, userMap);
+    }
+
+    // === TIMER MANAGEMENT ===
+    let timerInterval = null;
+
+    function startTimer(timerStart, timerMinutes, onExpire) {
+        clearTimer();
+
+        let timerDiv = document.getElementById('dmhk-timer');
+        if (!timerDiv) {
+            const board = getGameBoard();
+            timerDiv = document.createElement('div');
+            timerDiv.id = 'dmhk-timer';
+            timerDiv.style.cssText = 'margin: 15px 0; padding: 10px; background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 5px; text-align: center; font-weight: bold;';
+            board.insertBefore(timerDiv, board.firstChild);
+        }
+
+        const updateTimer = () => {
+            const elapsed = Math.floor((Date.now() - timerStart) / 1000);
+            const total = Math.floor(timerMinutes * 60);
+            const left = Math.max(0, total - elapsed);
+            const min = Math.floor(left / 60);
+            const sec = left % 60;
+
+            timerDiv.innerHTML = `⏱️ Time Remaining: ${min}:${sec.toString().padStart(2, '0')}`;
+
+            if (left <= 30) {
+                timerDiv.style.background = '#f8d7da';
+                timerDiv.style.borderColor = '#f5c6cb';
+                timerDiv.style.color = '#721c24';
+            }
+
+            if (left <= 0) {
+                clearTimer();
+                if (typeof onExpire === "function") onExpire();
+            }
+        };
+
+        updateTimer();
+        timerInterval = setInterval(updateTimer, 1000);
+    }
+
+    function clearTimer() {
+        if (timerInterval) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+        }
+    }
+
+    function removeTimerDisplay() {
+        const timerDiv = document.getElementById('dmhk-timer');
+        if (timerDiv) {
+            timerDiv.remove();
+        }
+    }
+
+    // Expose onRoomLoaded for integration
+    window.deceptionOnRoomLoaded = onRoomLoaded;
+
+})();

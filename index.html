@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GatherPlay</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <header id="topbar">
+        <button id="sidebar-toggle" class="topbar-btn">☰ Menu</button>
+        <span id="site-title" class="site-title" onclick="location.reload();">GatherPlay</span>
+        <button id="donate-btn" class="topbar-btn" onclick="window.open('https://www.buymeacoffee.com/', '_blank')">Donate</button>
+    </header>
+
+    <main>
+        <!-- Lobby/Game Selection Section -->
+        <section id="game-list" style="display:none;">
+            <h1>Welcome to GatherPlay (Social Deduction Hub)</h1>
+            <h2>Available Games</h2>
+            <ul class="game-list">
+                <li><button onclick="selectGame('Feed the Kraken')">Feed the Kraken</button></li>
+                <li><button onclick="selectGame('Insider')">Insider</button></li>
+                <li><button onclick="selectGame('Werewords')">Werewords</button></li>
+                <li><button onclick="selectGame('Deception Murder in Hong Kong')">Deception: Murder in Hong Kong</button></li>
+                <li><button onclick="selectGame('Game 1')">Game 1</button></li>
+                <li><button onclick="selectGame('Game 2')">Game 2</button></li>
+                <li><button onclick="selectGame('Game 3')">Game 3</button></li>
+            </ul>
+            <hr>
+            <form id="join-room-form" class="join-room-form" onsubmit="return false;">
+                <input type="text" id="room-id" placeholder="Enter Room ID to join">
+                <button id="join-room">Join Room</button>
+            </form>
+        </section>
+
+        <!-- Room Section -->
+        <section id="room-section" style="display:none;">
+            <h2 id="selected-game-title">Game Room</h2>
+            <div class="room-info">
+                <label>Room ID:</label>
+                <span id="generated-room-id"></span>
+                <button id="copy-room-id-btn" title="Copy Room ID">Copy</button>
+            </div>
+            <div class="room-actions">
+                <button id="create-room">Create Room</button>
+                <button id="start-game" style="display:none;">Start Game</button>
+                <button id="leave-room-btn-main" style="display:none;">Leave Room</button>
+                <button id="delete-room-btn-main" style="display:none; background:#e74c3c; color:#fff;">Delete Room</button>
+            </div>
+            <h3>Players in Room:</h3>
+            <ul id="player-list"></ul>
+            <div id="game-settings-panel" style="display:none; margin:10px 0;">
+                <div id="game-settings-content"></div>
+            </div>
+            <div class="room-extra-actions">
+                <button id="open-settings-btn" style="display:none;">Game Settings</button>
+                <button id="show-rules-btn" style="display:none;">Game Rules</button>
+            </div>
+        </section>
+
+        <!-- Game Boards Section (only one visible at a time) -->
+        <section id="boards">
+            <div id="ftk-board" style="display:none;"></div>
+            <div id="insider-board" style="display:none;"></div>
+            <div id="werewords-board" style="display:none;"></div>
+            <div id="dmhk-board" style="display:none;"></div>
+        </section>
+    </main>
+
+    <!-- Sidebar -->
+    <aside id="sidebar">
+        <h3 class="sidebar-title" onclick="location.reload();">GatherPlay</h3>
+        <div id="sidebar-username"></div>
+        <div id="sidebar-username-edit" style="margin-bottom:8px; display:none;">
+            <input type="text" id="sidebar-username-input" placeholder="Enter your name">
+            <button id="sidebar-username-save">Save</button>
+        </div>
+        <div id="sidebar-gameinfo" style="margin-bottom:8px;"></div>
+        <button id="change-username-btn">Change Name</button>
+        <hr>
+        <div id="sidebar-roomid" style="margin-bottom:8px; display:none;">
+            <label>Room ID:</label>
+            <span id="sidebar-room-id-value"></span>
+        </div>
+        <button id="return-room-btn" style="display:none;">Return to Room</button>
+        <button id="leave-room-btn" style="display:none;">Leave Room</button>
+        <button id="delete-room-btn" style="display:none; background:#e74c3c; color:#fff;">Delete Room</button>
+        <div id="sidebar-game-rules" style="display:none; margin-top:10px;"></div>
+    </aside>
+
+    <!-- Game Rules Modal -->
+    <div id="game-rules-modal" style="display:none; position:fixed; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.7); z-index:1000;">
+        <div style="background:#fff; margin:40px auto; padding:20px; max-width:600px; border-radius:8px; position:relative;">
+            <button onclick="document.getElementById('game-rules-modal').style.display='none';" style="position:absolute; right:10px; top:10px;">✖</button>
+            <div id="game-rules-content"></div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+    <script src="firebase.js"></script>
+    <script src="app.js"></script>
+    <script src="room.js"></script>
+    <!-- Add other game scripts as needed -->
+</body>
+</html>
