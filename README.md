@@ -1,199 +1,395 @@
-# 🎮 GatherPlay
+# 🎮 GatherPlay v2.0# 🎮 GatherPlay
 
-**GatherPlay** is a modern, real-time multiplayer platform for social deduction games. Play popular party games like Insider, Werewords, Feed the Kraken, and Deception: Murder in Hong Kong with friends online.
 
-![Version](https://img.shields.io/badge/version-2.0.0-blue)
+
+Modern real-time multiplayer platform for social deduction games.**GatherPlay** is a modern, real-time multiplayer platform for social deduction games. Play popular party games like Insider, Werewords, Feed the Kraken, and Deception: Murder in Hong Kong with friends online.
+
+
+
+---![Version](https://img.shields.io/badge/version-2.0.0-blue)
+
 ![Node](https://img.shields.io/badge/node-%3E%3D18.0.0-green)
-![License](https://img.shields.io/badge/license-MIT-blue)
 
-## ✨ Features
+## 🚀 Quick Start (3 Steps)![License](https://img.shields.io/badge/license-MIT-blue)
 
-- 🎲 **Multiple Games**: Choose from 4 popular social deduction games
-- 🔄 **Real-time Multiplayer**: Powered by Socket.IO for seamless gameplay
+
+
+### 1. Install## ✨ Features
+
+```bash
+
+npm install- 🎲 **Multiple Games**: Choose from 4 popular social deduction games
+
+```- 🔄 **Real-time Multiplayer**: Powered by Socket.IO for seamless gameplay
+
 - 🎨 **Modern UI**: Beautiful, responsive design with TailwindCSS
-- 📱 **Mobile Friendly**: Play on any device
-- 🚀 **Scalable Architecture**: Built to handle thousands of concurrent players
-- 🔒 **Type-Safe**: Full TypeScript support across the stack
+
+### 2. Start Servers- 📱 **Mobile Friendly**: Play on any device
+
+```bash- 🚀 **Scalable Architecture**: Built to handle thousands of concurrent players
+
+npm run dev- 🔒 **Type-Safe**: Full TypeScript support across the stack
+
+```
 
 ## 🎯 Available Games
 
-| Game | Players | Description |
+### 3. Open Browser
+
+**http://localhost:5173**| Game | Players | Description |
+
 |------|---------|-------------|
-| **Insider** | 4-12 | Word-guessing game where one player secretly helps |
+
+✅ **Done! Both servers running.**| **Insider** | 4-12 | Word-guessing game where one player secretly helps |
+
 | **Werewords** | 4-10 | Guess the magic word before werewolves sabotage you |
-| **Feed the Kraken** | 5-11 | Navigate the seas while pirates and cultists battle |
+
+---| **Feed the Kraken** | 5-11 | Navigate the seas while pirates and cultists battle |
+
 | **Deception: Murder in Hong Kong** | 4-12 | Solve the murder using cryptic clues |
+
+## 🧪 Test with 2 Browsers
 
 ## 🏗️ Tech Stack
 
-### Frontend
-- **React 18** - Modern React with hooks
+1. **Chrome** → http://localhost:5173
+
+   - Username: "Host"### Frontend
+
+   - Create Room → Copy ID- **React 18** - Modern React with hooks
+
 - **TypeScript** - Type-safe development
-- **Vite** - Lightning-fast build tool
-- **TailwindCSS** - Utility-first CSS framework
-- **Socket.IO Client** - Real-time communication
+
+2. **Firefox** → http://localhost:5173  - **Vite** - Lightning-fast build tool
+
+   - Username: "Player2"- **TailwindCSS** - Utility-first CSS framework
+
+   - Join with Room ID- **Socket.IO Client** - Real-time communication
+
 - **Zustand** - Lightweight state management
-- **React Router** - Client-side routing
 
-### Backend
+✅ **Both see each other in real-time!**- **React Router** - Client-side routing
+
+
+
+---### Backend
+
 - **Node.js** - JavaScript runtime
-- **Express** - Web server framework
+
+## 📖 Documentation- **Express** - Web server framework
+
 - **Socket.IO** - WebSocket server
-- **TypeScript** - Type-safe server code
 
-### Shared
-- Shared TypeScript types and utilities
-- Consistent validation across client and server
+### Must-Read (In Root Folder)- **TypeScript** - Type-safe server code
 
-## 📁 Project Structure
 
-```
+
+| File | Purpose |### Shared
+
+|------|---------|- Shared TypeScript types and utilities
+
+| `README.md` | ← You are here |- Consistent validation across client and server
+
+| `QUICKSTART.md` | Setup & troubleshooting |
+
+| `DEPLOYMENT.md` | How to publish online |## 📁 Project Structure
+
+
+
+### Detailed Guides (In `/docs` Folder)```
+
 GatherPlay/
-├── client/                 # React frontend
-│   ├── src/
-│   │   ├── components/    # Reusable UI components
-│   │   ├── contexts/      # React contexts (Socket, etc.)
-│   │   ├── pages/         # Route pages
+
+- **Quick Start** - 2-minute walkthrough├── client/                 # React frontend
+
+- **Testing Guide** - Multi-browser testing│   ├── src/
+
+- **System Architecture** - How it works│   │   ├── components/    # Reusable UI components
+
+- **Game Implementation** - Port old games│   │   ├── contexts/      # React contexts (Socket, etc.)
+
+- **Development Roadmap** - What's next│   │   ├── pages/         # Route pages
+
 │   │   ├── store/         # Zustand stores
-│   │   ├── App.tsx        # Main app component
+
+---│   │   ├── App.tsx        # Main app component
+
 │   │   └── main.tsx       # Entry point
-│   ├── index.html
+
+## 🎮 Available Games│   ├── index.html
+
 │   ├── package.json
-│   └── vite.config.ts
-│
-├── server/                # Node.js backend
-│   ├── src/
-│   │   ├── managers/      # Room and user management
-│   │   ├── index.ts       # Server entry point
+
+| Game | Players | Status |│   └── vite.config.ts
+
+|------|---------|--------|│
+
+| 🕵️ Insider | 4-12 | Framework ready, needs implementation |├── server/                # Node.js backend
+
+| 🐺 Werewords | 4-10 | Framework ready, needs implementation |│   ├── src/
+
+| 🦑 Feed the Kraken | 5-11 | Framework ready, needs implementation |│   │   ├── managers/      # Room and user management
+
+| 🔍 Deception | 4-12 | Framework ready, needs implementation |│   │   ├── index.ts       # Server entry point
+
 │   │   └── socket.ts      # Socket.IO handlers
-│   ├── package.json
+
+---│   ├── package.json
+
 │   └── tsconfig.json
-│
+
+## 🛠️ Tech Stack│
+
 ├── shared/                # Shared types and utilities
-│   ├── src/
-│   │   ├── types.ts       # TypeScript interfaces
-│   │   ├── constants.ts   # Shared constants
+
+- **Frontend:** React 18, TypeScript, Vite, TailwindCSS│   ├── src/
+
+- **Backend:** Node.js, Express, Socket.IO│   │   ├── types.ts       # TypeScript interfaces
+
+- **Real-time:** WebSocket (works on all browsers)│   │   ├── constants.ts   # Shared constants
+
 │   │   └── utils.ts       # Helper functions
-│   ├── package.json
+
+---│   ├── package.json
+
 │   └── tsconfig.json
-│
+
+## 📁 Project Structure│
+
 └── package.json           # Root workspace config
+
+``````
+
+new-gatherplay/
+
+├── client/           # React frontend (localhost:5173)## 🚀 Getting Started
+
+├── server/           # Node.js backend (port 3001)
+
+├── shared/           # Shared TypeScript types### Prerequisites
+
+├── docs/             # Detailed documentation
+
+├── README.md         # ← Start here- **Node.js** >= 18.0.0
+
+└── QUICKSTART.md     # Troubleshooting- **npm** >= 9.0.0
+
 ```
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-- **Node.js** >= 18.0.0
-- **npm** >= 9.0.0
 
 ### Installation
 
+---
+
 1. **Clone the repository**
-   ```bash
+
+## 🐛 Troubleshooting   ```bash
+
    git clone https://github.com/yourusername/GatherPlay.git
-   cd GatherPlay
+
+### ❌ "Connection Refused" Error   cd GatherPlay
+
    ```
 
-2. **Install dependencies**
-   ```bash
-   npm install
+**Server not running.** Start it:
+
+```bash2. **Install dependencies**
+
+npm run dev   ```bash
+
+```   npm install
+
    ```
 
-3. **Set up environment variables**
-   
-   Create `.env` files in both `client` and `server` directories:
-   
+Wait for both lines:
+
+```3. **Set up environment variables**
+
+✅ VITE ready at http://localhost:5173   
+
+✅ Server running on port 3001   Create `.env` files in both `client` and `server` directories:
+
+```   
+
    **server/.env**
-   ```env
+
+### ❌ "Module Not Found"   ```env
+
    PORT=3001
-   NODE_ENV=development
-   CLIENT_URL=http://localhost:5173
-   CORS_ORIGIN=http://localhost:5173
-   ```
-   
-   **client/.env**
-   ```env
+
+Build shared package:   NODE_ENV=development
+
+```bash   CLIENT_URL=http://localhost:5173
+
+cd shared   CORS_ORIGIN=http://localhost:5173
+
+npm run build   ```
+
+cd ..   
+
+npm run dev   **client/.env**
+
+```   ```env
+
    VITE_SERVER_URL=http://localhost:3001
-   ```
 
-### Development
+### ❌ Server Stops When I Close Terminal   ```
 
-Run both client and server in development mode:
 
-```bash
-npm run dev
+
+**Normal behavior!** The server only runs while `npm run dev` is active.### Development
+
+
+
+**Solutions:**Run both client and server in development mode:
+
+1. Keep terminal open while developing
+
+2. Use VS Code's integrated terminal```bash
+
+3. For production, deploy to a server (see DEPLOYMENT.md)npm run dev
+
 ```
 
+---
+
 This will start:
-- **Frontend**: http://localhost:5173
+
+## 🚀 Deployment (Publishing Online)- **Frontend**: http://localhost:5173
+
 - **Backend**: http://localhost:3001
+
+### ❌ GitHub Pages Won't Work
 
 Or run them separately:
 
+GitHub Pages is only for static sites. Your backend needs a server.
+
 ```bash
-# Frontend only
+
+### ✅ Recommended Free Options# Frontend only
+
 npm run dev:client
 
-# Backend only
-npm run dev:server
+**Frontend (React):**
+
+- Vercel ✅ (Free, easy)# Backend only
+
+- Netlify ✅ (Free)npm run dev:server
+
 ```
 
-### Production Build
+**Backend (Node.js):**
 
-```bash
+- Railway ✅ (Free tier, easy)### Production Build
+
+- Render ✅ (Free tier)
+
+- Fly.io ✅ (Free tier)```bash
+
 # Build all packages
-npm run build
 
-# Start production server
+See `DEPLOYMENT.md` for step-by-step instructions.npm run build
+
+
+
+---# Start production server
+
 npm start
-```
 
-## 🎮 How to Play
+## 🔧 Commands```
 
-1. **Set Your Username**
+
+
+```bash## 🎮 How to Play
+
+# Start everything
+
+npm run dev1. **Set Your Username**
+
    - Visit the homepage
-   - Enter your username (2-20 characters)
+
+# Start only frontend   - Enter your username (2-20 characters)
+
+npm run dev:client
 
 2. **Create or Join a Room**
-   - **Create**: Click "Create New Room" → Select a game
-   - **Join**: Enter a 6-character room code
 
-3. **Start the Game**
-   - Wait for players to join (minimum 4 players)
+# Start only backend   - **Create**: Click "Create New Room" → Select a game
+
+npm run dev:server   - **Join**: Enter a 6-character room code
+
+
+
+# Build for production3. **Start the Game**
+
+npm run build   - Wait for players to join (minimum 4 players)
+
    - Host clicks "Start Game"
-   - Follow game-specific rules
 
-4. **Have Fun!**
+# Production mode   - Follow game-specific rules
+
+npm start
+
+```4. **Have Fun!**
+
    - Each game has unique mechanics
-   - Work together or deceive each other
+
+---   - Work together or deceive each other
+
    - Winner is announced at the end
+
+## ❓ Common Questions
 
 ## 🔧 API Endpoints
 
-### REST API
+**Q: Where is my data stored?**  
 
-- `GET /health` - Server health check
-- `GET /api/rooms` - List all active rooms
+A: In server memory (RAM). Lost when server restarts. Can add database later.### REST API
 
-### Socket.IO Events
+
+
+**Q: Works on all browsers?**  - `GET /health` - Server health check
+
+A: Yes! Chrome, Firefox, Edge, Safari, Opera - all supported.- `GET /api/rooms` - List all active rooms
+
+
+
+**Q: Can I test multiplayer alone?**  ### Socket.IO Events
+
+A: Yes! Open multiple browsers, join same room with different usernames.
 
 #### Client → Server
 
-- `room:create` - Create a new game room
+**Q: Why does it stop when I close VS Code?**  
+
+A: Server runs in terminal. Closing terminal stops server. Normal!- `room:create` - Create a new game room
+
 - `room:join` - Join an existing room
-- `room:leave` - Leave current room
-- `room:updateSettings` - Update room settings (host only)
+
+**Q: How to keep it running 24/7?**  - `room:leave` - Leave current room
+
+A: Deploy to a hosting service like Railway or Render (see DEPLOYMENT.md).- `room:updateSettings` - Update room settings (host only)
+
 - `game:start` - Start the game (host only)
-- `game:action` - Send game action
+
+---- `game:action` - Send game action
+
 - `user:updateUsername` - Update your username
+
+## 📝 License
 
 #### Server → Client
 
+MIT License - See [LICENSE](LICENSE)
+
 - `room:created` - Room successfully created
-- `room:joined` - Joined a room
+
+---- `room:joined` - Joined a room
+
 - `room:updated` - Room state changed
-- `room:left` - Left the room
+
+**Need Help?** Check `QUICKSTART.md` or `/docs` folder!- `room:left` - Left the room
+
 - `room:deleted` - Room was deleted
 - `game:started` - Game has started
 - `game:updated` - Game state changed

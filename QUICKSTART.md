@@ -1,134 +1,160 @@
-# 🚀 Quick Start Guide
+# ⚡ Quick Start Guide
 
-## Get Up and Running in 2 Minutes!
+## 🚀 How to Run (Every Time)
 
-### Step 1: Install Dependencies (already done!)
+### Option 1: NPM Command (Recommended)
 ```bash
-✅ Dependencies already installed with `npm install`
+cd new-gatherplay
+npm run dev
 ```
 
-### Step 2: Start Development Servers
+### Option 2: Double-Click Startup Script
+- Windows: Double-click `start.bat`
+- Mac/Linux: Run `./start.sh`
+
+**Wait for:**
+```
+✅ VITE v5.4.20  ready at http://localhost:5173
+✅ 🚀 Server running on port 3001
+```
+
+**Then open:** http://localhost:5173
+
+---
+
+## 🐛 Common Issues
+
+### ❌ "Connection Refused" or "Cannot GET /"
+
+**Problem:** Server not running
+
+**Solution:**
 ```bash
 npm run dev
 ```
 
-This starts both:
-- **Frontend**: http://localhost:5173
-- **Backend**: http://localhost:3001
+### ❌ "Module Not Found @gatherplay/shared"
 
-### Step 3: Test It Out!
+**Problem:** Shared package not built
 
-1. **Open your browser**: http://localhost:5173
-
-2. **Create a username**:
-   - Enter any name (2-20 characters)
-   - Click "Continue"
-
-3. **Create a room**:
-   - Click "Create New Room"
-   - Select a game (any will work)
-   - Click "Create Room"
-
-4. **Test multiplayer** (optional):
-   - Open another browser window (incognito mode)
-   - Go to http://localhost:5173
-   - Create a different username
-   - Enter the room code from the first window
-   - Click "Join Room"
-
-### Step 4: Develop Your Games!
-
-The platform is ready. Now implement the game logic:
-
-1. **Game Components**: `client/src/components/games/`
-2. **Game Logic**: `server/src/games/`
-3. **Shared Types**: `shared/src/types.ts`
-
-## 🎮 What's Working
-
-✅ Real-time room creation
-✅ Room joining with codes
-✅ Player management
-✅ Real-time updates via Socket.IO
-✅ Responsive UI
-✅ Connection status
-✅ Room deletion
-✅ Host controls
-
-## 🔨 What Needs Implementation
-
-The platform framework is complete, but you need to implement:
-
-- [ ] Game-specific UI components
-- [ ] Game rules and logic
-- [ ] Game state management for each game
-- [ ] Timer systems for games
-- [ ] Role assignment logic
-- [ ] Voting systems
-- [ ] Win condition checking
-
-## 📖 Quick Commands
-
+**Solution:**
 ```bash
-# Development
-npm run dev              # Start everything
-npm run dev:client       # Frontend only
-npm run dev:server       # Backend only
-
-# Production
-npm run build            # Build all packages
-npm start                # Start production server
-
-# Code Quality
-npm run lint             # Check code
-npm run format           # Format code
+cd shared
+npm run build
+cd ..
+npm run dev
 ```
 
-## 🆘 Having Issues?
+### ❌ "Port 5173 already in use"
 
-### Port 3001 already in use?
+**Problem:** Another process using the port
+
+**Solution (Windows):**
 ```bash
-# Windows
-netstat -ano | findstr :3001
+netstat -ano | findstr :5173
 taskkill /PID <PID> /F
-
-# Or change in server/.env
-PORT=3002
+npm run dev
 ```
 
-### Can't connect to server?
-1. Check `server/.env` has `PORT=3001`
-2. Check `client/.env` has `VITE_SERVER_URL=http://localhost:3001`
-3. Restart both servers
+### ❌ Server Stops When I Close Terminal
 
-### TypeScript errors?
-```bash
-npm run build --workspace=shared
-```
+**This is normal!** Server runs only while terminal is open.
 
-## 📚 Documentation
-
-- **README.md** - Full documentation
-- **PROJECT_SUMMARY.md** - What was built
-- **DEPLOYMENT.md** - How to deploy
-- **CONTRIBUTING.md** - How to contribute
-
-## 🎯 Next Steps
-
-1. **Start with one game** (e.g., Insider)
-2. **Create game component** in `client/src/components/games/Insider.tsx`
-3. **Add game logic** to server
-4. **Test with friends**
-5. **Iterate and improve**
-
-## 💡 Pro Tips
-
-- Use VS Code tasks: `Ctrl+Shift+P` → "Tasks: Run Task"
-- Install recommended extensions (see `.vscode/extensions.json`)
-- Check browser console for Socket.IO connection status
-- Use React DevTools for debugging
-- Monitor server logs for errors
+**Solutions:**
+- Keep terminal open
+- Use VS Code integrated terminal
+- Deploy to a hosting service for 24/7 uptime
 
 ---
 
-**You're all set! Start building! 🎮**
+## 📝 First Time Setup
+
+Only need to do this once:
+
+```bash
+# 1. Navigate to project
+cd new-gatherplay
+
+# 2. Install dependencies
+npm install
+
+# 3. Build shared package
+cd shared
+npm run build
+cd ..
+
+# 4. Start servers
+npm run dev
+```
+
+---
+
+## 🧪 Quick Test
+
+1. **Browser 1 (Chrome):**
+   - http://localhost:5173
+   - Username: "Host"
+   - Create Room → Copy ID
+
+2. **Browser 2 (Firefox):**
+   - http://localhost:5173
+   - Username: "Player2"
+   - Join with Room ID
+
+✅ Both see each other!
+
+---
+
+## 🚀 Deployment (Go Live)
+
+### GitHub Pages ❌ Won't Work
+- Only for static sites
+- You need backend server
+
+### Recommended (Free)
+
+**Frontend:** Vercel or Netlify  
+**Backend:** Railway or Render
+
+See `DEPLOYMENT.md` for detailed steps.
+
+---
+
+## 🔧 Useful Commands
+
+```bash
+# Start everything
+npm run dev
+
+# Stop servers
+Ctrl + C (in terminal)
+
+# Restart servers
+npm run dev
+
+# Check if running
+# Should see "Server running on port 3001"
+```
+
+---
+
+## 💡 Tips
+
+1. **Keep terminal visible** - See server logs and errors
+2. **Use VS Code terminal** - Integrated, stays open
+3. **Check browser console** - F12 for errors
+4. **Test with multiple browsers** - Chrome + Firefox
+5. **Bookmark localhost:5173** - Quick access
+
+---
+
+## 📞 Still Having Issues?
+
+Check these files in `/docs` folder:
+- `TESTING_GUIDE.md` - Detailed testing
+- `SYSTEM_ARCHITECTURE.md` - How it works
+- `HOW_TO_PROCEED.md` - Development guide
+
+---
+
+**✅ You're ready! Run `npm run dev` and open http://localhost:5173**
