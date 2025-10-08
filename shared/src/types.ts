@@ -57,19 +57,22 @@ export interface GameSettings {
 export interface InsiderGameState {
   phase: InsiderPhase;
   roles: Record<string, InsiderRole>;
-  word: string;
+  secretWord: string;
   masterId: string;
   insiderId: string;
-  timerStart?: number;
-  timerMinutes: number;
-  accusedPlayer?: string;
+  timerStart: number;
+  timerDuration: number; // in seconds
+  accusedPlayerId?: string;
+  wordGuessed: boolean;
+  wordDifficulty: 'easy' | 'medium' | 'hard' | 'mixed';
   result?: string;
 }
 
 export enum InsiderPhase {
-  QUESTIONING = 1,
-  VOTING = 2,
-  GAME_OVER = 3,
+  ROLE_REVEAL = 'role_reveal',
+  QUESTIONING = 'questioning',
+  VOTING = 'voting',
+  GAME_OVER = 'game_over',
 }
 
 export type InsiderRole = 'Master' | 'Insider' | 'Common';

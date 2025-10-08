@@ -3,7 +3,9 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useSocket } from '../contexts/SocketContext';
 import { useRoomStore } from '../store/roomStore';
 import { useUserStore } from '../store/userStore';
-import { RoomState } from '@shared/types';
+import { RoomState, InsiderSettings } from '@shared';
+import InsiderGame from '../components/games/InsiderGame';
+import InsiderSettingsPanel from '../components/games/InsiderSettings';
 
 export default function Room() {
   const { roomId } = useParams<{ roomId: string }>();
@@ -90,20 +92,32 @@ export default function Room() {
         {isHost && showSettings && currentRoom.state === RoomState.LOBBY && (
           <div className="mb-6 p-4 bg-gray-700 rounded-lg border-2 border-primary-500">
             <h3 className="text-lg font-semibold text-white mb-4">⚙️ Game Settings</h3>
-            <div className="space-y-4">
-              <div className="text-gray-400 text-sm">
-                <p className="mb-2">🎮 Customize your game experience:</p>
-                <ul className="list-disc list-inside space-y-1 text-xs">
-                  <li>Difficulty levels</li>
-                  <li>Timer duration</li>
-                  <li>Special roles and rules</li>
-                  <li>Game-specific options</li>
-                </ul>
-                <p className="mt-3 text-yellow-400 text-xs">
-                  ⚠️ Settings UI coming soon! Game-specific customization will be available for each game type.
-                </p>
+            {currentRoom.gameName === 'insider' ? (
+              <InsiderSettingsPanel
+                settings={currentRoom.settings as InsiderSettings}
+                onSave={(newSettings) => {
+                  if (socket) {
+                    socket.emit('room:updateSettings', newSettings);
+                    setShowSettings(false);
+                  }
+                }}
+              />
+            ) : (
+              <div className="space-y-4">
+                <div className="text-gray-400 text-sm">
+                  <p className="mb-2">🎮 Customize your game experience:</p>
+                  <ul className="list-disc list-inside space-y-1 text-xs">
+                    <li>Difficulty levels</li>
+                    <li>Timer duration</li>
+                    <li>Special roles and rules</li>
+                    <li>Game-specific options</li>
+                  </ul>
+                  <p className="mt-3 text-yellow-400 text-xs">
+                    ⚠️ Settings for this game coming soon!
+                  </p>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         )}
 
@@ -148,8 +162,17 @@ export default function Room() {
         )}
 
         {currentRoom.state === RoomState.IN_PROGRESS && (
-          <div className="bg-primary-500/10 border border-primary-500 p-4 rounded-lg">
-            <p className="text-primary-400 text-center">Game in progress...</p>
+          <div>
+            {currentRoom.gameName === 'insider' ? (
+              <InsiderGame roomId={currentRoom.id} />
+            ) : (
+              <div className="bg-primary-500/10 border border-primary-500 p-4 rounded-lg">
+                <p className="text-primary-400 text-center">Game in progress...</p>
+                <p className="text-gray-400 text-center text-sm mt-2">
+                  Game UI for {currentRoom.gameName} coming soon!
+                </p>
+              </div>
+            )}
           </div>
         )}
       </div>
