@@ -78,73 +78,77 @@ export default function Home() {
 
   return (
     <div className="max-w-6xl mx-auto">
-      {/* Hero Section */}
-      <div className="text-center mb-12">
-        <h1 className="text-6xl font-bold text-white mb-4">
+      {/* Hero Section - REDUCED SIZE */}
+      <div className="text-center mb-10">
+        <h1 className="text-4xl font-bold text-white mb-3">
           Welcome, <span className="text-primary-400">{user.username}</span>!
         </h1>
-        <p className="text-2xl text-gray-400 mb-8">
+        <p className="text-lg text-gray-400">
           Play social deduction games with friends in real-time
         </p>
       </div>
 
-      {/* Main Action Cards */}
-      <div className="grid md:grid-cols-2 gap-8 mb-16">
+      {/* Main Action Cards - REDUCED SIZE */}
+      <div className="grid md:grid-cols-2 gap-6 mb-12">
         <div className="card text-center group hover:bg-gray-700 transition-all cursor-pointer"
              onClick={() => navigate('/lobby')}>
-          <div className="text-6xl mb-6 group-hover:scale-110 transition-transform">🎮</div>
-          <h2 className="text-3xl font-bold text-white mb-4">Create a Game</h2>
-          <p className="text-gray-400 mb-6 text-lg">
+          <div className="text-5xl mb-4 group-hover:scale-110 transition-transform">🎮</div>
+          <h2 className="text-2xl font-bold text-white mb-3">Create a Game</h2>
+          <p className="text-gray-400 mb-4">
             Host a new game room and invite your friends to join
           </p>
-          <button className="btn btn-primary w-full text-lg py-3">
+          <button className="btn btn-primary w-full">
             Create New Room
           </button>
         </div>
 
         <div className="card group hover:bg-gray-700 transition-all">
-          <div className="text-center mb-6">
-            <div className="text-6xl mb-4 group-hover:scale-110 transition-transform">🚪</div>
-            <h2 className="text-3xl font-bold text-white mb-4">Join a Game</h2>
-            <p className="text-gray-400 mb-6 text-lg">
+          <div className="text-center mb-4">
+            <div className="text-5xl mb-3 group-hover:scale-110 transition-transform">🚪</div>
+            <h2 className="text-2xl font-bold text-white mb-3">Join a Game</h2>
+            <p className="text-gray-400 mb-4">
               Enter a room code to join an existing game
             </p>
           </div>
           <form onSubmit={handleJoinRoom}>
             <input
               type="text"
-              className="input w-full mb-4 text-center text-xl font-mono"
+              className="input w-full mb-4 text-center text-lg font-mono"
               placeholder="Enter Room ID (e.g., ABC123)"
               value={roomId}
               onChange={(e) => setRoomId(e.target.value.toUpperCase())}
               maxLength={6}
             />
             {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
-            <button type="submit" className="btn btn-primary w-full text-lg py-3">
+            <button type="submit" className="btn btn-primary w-full">
               Join Room
             </button>
           </form>
         </div>
       </div>
 
-      {/* Game Showcase - Just a teaser */}
+      {/* Game Showcase - GAME NAMES INSTEAD OF EMOJIS */}
       <div className="card text-center">
-        <h2 className="text-3xl font-bold text-white mb-4">12 Games & Counting</h2>
-        <p className="text-gray-400 mb-8 text-lg">
+        <h2 className="text-2xl font-bold text-white mb-3">12 Games Available</h2>
+        <p className="text-gray-400 mb-6">
           From classic word games to intense hidden movement thrillers
         </p>
         
-        <div className="flex justify-center items-center space-x-6 mb-8 flex-wrap gap-4">
-          {['🕵️', '🐺', '🏛️', '🎭', '🦑', '🔍', '🧟', '🕯️', '🧛', '👁️', '�', '🚂'].map((emoji, i) => (
-            <div key={i} className="text-5xl hover:scale-125 transition-transform cursor-default">
-              {emoji}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mb-6">
+          {[
+            'Insider', 'Werewords', 'Town of Salem', 'Mascarade',
+            'Feed the Kraken', 'Deception', 'Dead of Winter', 'Letters from Whitechapel',
+            'Fury of Dracula', 'Specter Ops', 'Not Alone', 'Scotland Yard'
+          ].map((name, i) => (
+            <div key={i} className="bg-gray-700 px-3 py-2 rounded text-sm text-gray-300 hover:bg-gray-600 transition-colors cursor-default">
+              {name}
             </div>
           ))}
         </div>
 
         <button
           onClick={() => navigate('/lobby')}
-          className="btn btn-secondary text-lg"
+          className="btn btn-secondary"
         >
           Browse All Games →
         </button>
