@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSocket } from '../contexts/SocketContext';
 import { useRoomStore } from '../store/roomStore';
@@ -11,6 +11,7 @@ export default function Room() {
   const { socket } = useSocket();
   const { currentRoom } = useRoomStore();
   const { user } = useUserStore();
+  const [showSettings, setShowSettings] = useState(false);
 
   useEffect(() => {
     if (!user || !socket) {
@@ -70,10 +71,41 @@ export default function Room() {
               <span>State: {currentRoom.state}</span>
             </div>
           </div>
-          <button onClick={handleLeaveRoom} className="btn btn-danger">
-            Leave Room
-          </button>
+          <div className="flex space-x-2">
+            {isHost && currentRoom.state === RoomState.LOBBY && (
+              <button
+                onClick={() => setShowSettings(!showSettings)}
+                className="btn bg-gray-700 hover:bg-gray-600"
+              >
+                ⚙️ Settings
+              </button>
+            )}
+            <button onClick={handleLeaveRoom} className="btn btn-danger">
+              Leave Room
+            </button>
+          </div>
         </div>
+
+        {/* Game Settings Panel */}
+        {isHost && showSettings && currentRoom.state === RoomState.LOBBY && (
+          <div className="mb-6 p-4 bg-gray-700 rounded-lg border-2 border-primary-500">
+            <h3 className="text-lg font-semibold text-white mb-4">⚙️ Game Settings</h3>
+            <div className="space-y-4">
+              <div className="text-gray-400 text-sm">
+                <p className="mb-2">🎮 Customize your game experience:</p>
+                <ul className="list-disc list-inside space-y-1 text-xs">
+                  <li>Difficulty levels</li>
+                  <li>Timer duration</li>
+                  <li>Special roles and rules</li>
+                  <li>Game-specific options</li>
+                </ul>
+                <p className="mt-3 text-yellow-400 text-xs">
+                  ⚠️ Settings UI coming soon! Game-specific customization will be available for each game type.
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
 
         <div className="bg-gray-700 p-4 rounded-lg mb-6">
           <h3 className="text-lg font-semibold text-white mb-3">

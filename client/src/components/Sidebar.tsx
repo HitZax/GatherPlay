@@ -33,41 +33,24 @@ export default function Sidebar() {
       {/* Toggle Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed top-20 right-4 z-50 bg-gray-700 hover:bg-gray-600 text-white p-3 rounded-lg shadow-lg transition-all"
-        title="Toggle Sidebar"
+        className="fixed top-20 left-4 z-50 bg-gray-700 hover:bg-gray-600 text-white p-3 rounded-lg shadow-lg transition-all"
+        title="Toggle Menu"
       >
         {isOpen ? '✕' : '☰'}
       </button>
 
       {/* Sidebar */}
       <div
-        className={`fixed top-0 right-0 h-full bg-gray-800 border-l border-gray-700 shadow-2xl z-40 transition-transform duration-300 ${
-          isOpen ? 'translate-x-0' : 'translate-x-full'
+        className={`fixed top-0 left-0 h-full bg-gray-800 border-r border-gray-700 shadow-2xl z-40 transition-transform duration-300 ${
+          isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
         style={{ width: '320px' }}
       >
-        <div className="p-6 h-full overflow-y-auto">
+        <div className="p-6 h-full overflow-y-auto flex flex-col">
           {/* Header */}
           <div className="mb-6">
-            <h2 className="text-xl font-bold text-white mb-2">Game Info</h2>
+            <h2 className="text-xl font-bold text-white mb-2">Game Menu</h2>
             <div className="h-1 bg-primary-500 rounded"></div>
-          </div>
-
-          {/* Connection Status */}
-          <div className="mb-6 p-4 bg-gray-700 rounded-lg">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-gray-400 text-sm">Status</span>
-              <div className="flex items-center space-x-2">
-                <div
-                  className={`w-2 h-2 rounded-full ${
-                    connected ? 'bg-green-500' : 'bg-red-500'
-                  }`}
-                />
-                <span className="text-sm text-white">
-                  {connected ? 'Connected' : 'Disconnected'}
-                </span>
-              </div>
-            </div>
           </div>
 
           {/* User Info */}
@@ -199,19 +182,37 @@ export default function Sidebar() {
             <div className="space-y-2">
               <button
                 onClick={() => {
+                  if (currentRoom) {
+                    alert('Please leave your current room first before navigating.');
+                    return;
+                  }
                   navigate('/');
                   setIsOpen(false);
                 }}
-                className="w-full text-left px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded transition-colors"
+                disabled={!!currentRoom}
+                className={`w-full text-left px-4 py-2 rounded transition-colors ${
+                  currentRoom
+                    ? 'bg-gray-600 text-gray-500 cursor-not-allowed'
+                    : 'bg-gray-700 hover:bg-gray-600 text-white'
+                }`}
               >
                 🏠 Home
               </button>
               <button
                 onClick={() => {
+                  if (currentRoom) {
+                    alert('Please leave your current room first before creating a new one.');
+                    return;
+                  }
                   navigate('/lobby');
                   setIsOpen(false);
                 }}
-                className="w-full text-left px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded transition-colors"
+                disabled={!!currentRoom}
+                className={`w-full text-left px-4 py-2 rounded transition-colors ${
+                  currentRoom
+                    ? 'bg-gray-600 text-gray-500 cursor-not-allowed'
+                    : 'bg-gray-700 hover:bg-gray-600 text-white'
+                }`}
               >
                 ➕ Create Room
               </button>
@@ -219,7 +220,7 @@ export default function Sidebar() {
           </div>
 
           {/* Help Section */}
-          <div className="p-4 bg-gray-700 rounded-lg">
+          <div className="p-4 bg-gray-700 rounded-lg mb-6">
             <h3 className="text-sm font-semibold text-white mb-2">Need Help?</h3>
             <p className="text-gray-400 text-xs mb-3">
               Check out the guides in the project folder:
@@ -231,8 +232,25 @@ export default function Sidebar() {
             </ul>
           </div>
 
+          {/* Donation Section */}
+          <div className="p-4 bg-gradient-to-br from-primary-600 to-primary-700 rounded-lg mb-6">
+            <h3 className="text-sm font-semibold text-white mb-2">💖 Support GatherPlay</h3>
+            <p className="text-gray-200 text-xs mb-3">
+              This is a passion project made for fun! If you enjoy it, consider supporting development.
+            </p>
+            <button
+              onClick={() => window.open('https://ko-fi.com/gatherplay', '_blank')}
+              className="w-full bg-white hover:bg-gray-100 text-primary-700 font-semibold py-2 px-4 rounded transition-colors text-sm"
+            >
+              ☕ Buy me a coffee
+            </button>
+          </div>
+
+          {/* Spacer to push footer to bottom */}
+          <div className="flex-1"></div>
+
           {/* Footer */}
-          <div className="mt-6 pt-6 border-t border-gray-700">
+          <div className="mt-auto pt-6 border-t border-gray-700">
             <p className="text-gray-500 text-xs text-center">
               GatherPlay v2.0
               <br />

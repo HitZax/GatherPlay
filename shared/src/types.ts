@@ -35,7 +35,19 @@ export enum RoomState {
 }
 
 // Game types
-export type GameType = 'insider' | 'werewords' | 'feed-the-kraken' | 'deception-murder-hong-kong';
+export type GameType = 
+  | 'insider' 
+  | 'werewords' 
+  | 'feed-the-kraken' 
+  | 'deception-murder-hong-kong'
+  | 'town-of-salem'
+  | 'dead-of-winter'
+  | 'mascarade'
+  | 'letters-from-whitechapel'
+  | 'fury-of-dracula'
+  | 'specter-ops'
+  | 'not-alone'
+  | 'scotland-yard';
 
 export interface GameSettings {
   [key: string]: unknown;
